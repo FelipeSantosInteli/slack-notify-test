@@ -14,7 +14,7 @@ jobs:
       - uses: kceb/pull-request-url-action@v1
         id: pr-url
 
-      - run: echo "PR URL: ${{ steps.pr-url.outputs.url }}"
+      - run: echo "PR_URL: ${{ steps.pr-url.outputs.url }}"
 
       - name: Install Python and Dependencies
         run: |
