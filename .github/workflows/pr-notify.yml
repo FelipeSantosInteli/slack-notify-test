@@ -50,7 +50,7 @@ jobs:
               result = client.chat_postMessage(
                   channel=channel_id,
                   text=f'New PR from {head_ref} to {base_ref}',
-                  attachments=[{'pretext': f'Created by {actor}', 'text': pr_link}]
+                  attachments=[{'pretext': actor, 'text': pr_link}]
               )
               logger.info(result)
 
