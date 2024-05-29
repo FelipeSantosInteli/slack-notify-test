@@ -8,6 +8,11 @@ jobs:
   slack_notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Install Python and Dependencies
+        run: |
+          sudo apt-get install python3-pip
+          pip3 install slack_sdk
+
       - name: Send Notify
 
         env:
