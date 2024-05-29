@@ -24,13 +24,18 @@ jobs:
           PR_URL: ${{ steps.pr-url.outputs.url }}
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
-          URL: ${{ steps.pr-url.outputs.url }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_PR_NUMBER: ${{ github.event.number }}
         run: |
           echo "
           import logging
           import os
           from slack_sdk import WebClient
           from slack_sdk.errors import SlackApiError
+
+          repository = os.environ.get('GITHUB_REPOSITORY')
+          pr_number = os.environ.get('GITHUB_PR_NUMBER')
+          pr_link = f'https://github.com/{repository}/pull/{pr_number}'
 
           client = WebClient(token=os.environ.get('SLACK_BOT_TOKEN'))
           logger = logging.getLogger(__name__)
@@ -41,7 +46,7 @@ jobs:
               result = client.chat_postMessage(
                   channel=channel_id, 
                   text='New PR from $GITHUB_HEAD_REF to $GITHUB_BASE_REF',
-                  attachments=[{"pretext": "$GIT_COMMIT_MESSAGE", "text": "$URL"}]
+                  attachments=[{"pretext": $GITHUB_ACTOR, "text": pr_link}]
               )
               logger.info(result)
 
