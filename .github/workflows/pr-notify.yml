@@ -39,7 +39,7 @@ jobs:
               result = client.chat_postMessage(
                   channel=channel_id, 
                   text='New PR from $GITHUB_HEAD_REF to $GITHUB_BASE_REF',
-                  attachments=[{"pretext": $GIT_LATEST_COMMIT_MESSAGE, "text": $URL}]
+                  attachments=[{"pretext": $GIT_COMMIT_MESSAGE, "text": $URL}]
               )
               logger.info(result)
 
