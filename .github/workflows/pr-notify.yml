@@ -8,6 +8,11 @@ jobs:
   slack_notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Install Python and Dependencies
+        run: |
+          sudo apt-get install python3-pip
+          pip3 install slack_sdk
+
       - name: Send Notify
 
         env:
@@ -29,7 +34,7 @@ jobs:
           try:
               result = client.chat_postMessage(
                   channel=channel_id, 
-                  text=f'New PR from {$GITHUB_HEAD_REF} to {$GITHUB_BASE_REF}'
+                  text='New PR from $GITHUB_HEAD_REF to $GITHUB_BASE_REF'
               )
               logger.info(result)
 
