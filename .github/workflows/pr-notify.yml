@@ -34,7 +34,7 @@ jobs:
           try:
               result = client.chat_postMessage(
                   channel=channel_id, 
-                  text=f'New PR from {$GITHUB_HEAD_REF} to {$GITHUB_BASE_REF}'
+                  text='New PR from $GITHUB_HEAD_REF to $GITHUB_BASE_REF'
               )
               logger.info(result)
 
