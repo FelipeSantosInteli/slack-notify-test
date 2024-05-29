@@ -11,11 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: kceb/pull-request-url-action@v1
-        id: pr-url
-
-      - run: echo "PR_URL: ${{ steps.pr-url.outputs.url }}"
-
       - name: Install Python and Dependencies
         run: |
           sudo apt-get update
@@ -39,9 +34,9 @@ jobs:
           from slack_sdk import WebClient
           from slack_sdk.errors import SlackApiError
 
-          repository = os.environ.get('GITHUB_REPOSITORY')
-          pr_number = os.environ.get('GITHUB_PR_NUMBER')
-          pr_link = os.environ.get('PR_URL')
+          repository = os.environ['GITHUB_REPOSITORY']
+          pr_number = os.environ['GITHUB_PR_NUMBER']
+          pr_link = f'https://github.com/{repository}/pull/{pr_number}'
           head_ref = os.environ.get('GITHUB_HEAD_REF')
           base_ref = os.environ.get('GITHUB_BASE_REF')
           actor = os.environ.get('GITHUB_ACTOR')
