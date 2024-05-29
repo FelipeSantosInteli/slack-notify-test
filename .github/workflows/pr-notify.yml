@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Notify
-        uses: kceb/pull-request-url-action@v1
-        id: pr-url
 
         env:
           PR_URL: ${{ steps.pr-url.outputs.url }}
