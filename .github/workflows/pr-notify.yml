@@ -11,6 +11,8 @@ jobs:
       - uses: kceb/pull-request-url-action@v1
         id: pr-url
 
+      - run: echo "${{ steps.pr-url.outputs.url }}"
+
       - name: Install Python and Dependencies
         run: |
           sudo apt-get install python3-pip
