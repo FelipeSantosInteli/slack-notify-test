@@ -27,6 +27,8 @@ jobs:
           GITHUB_HEAD_REF: ${{ github.head_ref }}
           GITHUB_BASE_REF: ${{ github.base_ref }}
           GITHUB_ACTOR: ${{ github.actor }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+
         run: |
           echo "
           import logging
@@ -40,6 +42,7 @@ jobs:
           head_ref = os.environ.get('GITHUB_HEAD_REF')
           base_ref = os.environ.get('GITHUB_BASE_REF')
           actor = os.environ.get('GITHUB_ACTOR')
+          pr_title = os.environ.get('PR_TITLE')
 
           client = WebClient(token=os.environ.get('SLACK_BOT_TOKEN'))
           logger = logging.getLogger(__name__)
@@ -50,7 +53,7 @@ jobs:
               result = client.chat_postMessage(
                   channel=channel_id,
                   text=f'New PR from {head_ref} to {base_ref}',
-                  attachments=[{'pretext': actor, 'text': pr_link}]
+                  attachments=[{'pretext': pr_title, 'text': pr_link}]
               )
               logger.info(result)
 
